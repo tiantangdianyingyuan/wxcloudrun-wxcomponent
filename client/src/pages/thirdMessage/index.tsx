@@ -115,12 +115,12 @@ export default function ThirdMessage() {
     const [normalDataTotal, setNormalDataTotal] = useState(0)
 
     const [infoTypeInput, setInfoTypeInput] = useState('')
-    const [authTimeInput, setAuthTimeInput] = useState<[string, string]>(['', ''])
+    const [authTimeInput, setAuthTimeInput] = useState<[string, string]>([moment().format('YYYY-MM-DD HH:mm:ss'), moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss')])
 
     const [msgTypeInput, setMsgTypeInput] = useState('')
     const [eventInput, setEventInput] = useState('')
     const [toUserNameInput, setToUserNameInput] = useState('')
-    const [normalTimeInput, setNormalTimeInput] = useState<[string, string]>(['', ''])
+    const [normalTimeInput, setNormalTimeInput] = useState<[string, string]>([moment().format('YYYY-MM-DD HH:mm:ss'), moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss')])
 
     const [messageConfig, setMessageConfig] = useState({
         bizPath: "",
@@ -132,15 +132,16 @@ export default function ThirdMessage() {
 
     useEffect(() => {
         getMessageConfig()
+        getTableData()
     }, [])
 
     const initParams = () => {
         setInfoTypeInput('')
-        setAuthTimeInput(['', ''])
+        setAuthTimeInput([moment().format('YYYY-MM-DD HH:mm:ss'), moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss')])
         setMsgTypeInput('')
         setEventInput('')
         setToUserNameInput('')
-        setNormalTimeInput(['', ''])
+        setNormalTimeInput([moment().format('YYYY-MM-DD HH:mm:ss'), moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss')])
     }
 
     const getMessageConfig = async () => {
@@ -229,7 +230,7 @@ export default function ThirdMessage() {
                         </div>
                         <div className="normal_flex">
                             <p style={{ marginRight: '20px' }}>推送时间</p>
-                            <DatePicker placeholder="必填，需选择日期，否则无法查询" style={{ width: '340px', marginRight: '20px' }} mode="date" onChange={(val: any) => setAuthTimeInput(val)} enableTimePicker range />
+                            <DatePicker value={authTimeInput} placeholder="必填，需选择日期，否则无法查询" style={{ width: '340px', marginRight: '20px' }} mode="date" onChange={(val: any) => setAuthTimeInput(val)} enableTimePicker range />
                         </div>
                         <Button onClick={getTableData}>查询</Button>
                     </div>
@@ -255,20 +256,20 @@ export default function ThirdMessage() {
                 <TabPanel value={tabs[1].value} label={tabs[1].label}>
                     <div className="normal_flex" style={{ margin: '10px 0' }}>
                         <div className="normal_flex">
-                            <p style={{ marginRight: '20px' }}>MsgType</p>
+                            <p style={{ marginRight: '10px' }}>MsgType</p>
                             <Input value={msgTypeInput} onChange={(val) => setMsgTypeInput(val as string)} clearable style={{ width: '120px', marginRight: '20px' }} />
                         </div>
                         <div className="normal_flex">
-                            <p style={{ marginRight: '20px' }}>Event</p>
+                            <p style={{ marginRight: '10px' }}>Event</p>
                             <Input value={eventInput} onChange={(val) => setEventInput(val as string)} clearable style={{ width: '120px', marginRight: '20px' }} />
                         </div>
                         <div className="normal_flex">
-                            <p style={{ marginRight: '20px' }}>ToUserName</p>
+                            <p style={{ marginRight: '10px' }}>ToUserName</p>
                             <Input value={toUserNameInput} onChange={(val) => setToUserNameInput(val as string)} clearable style={{ width: '140px', marginRight: '20px' }} />
                         </div>
                         <div className="normal_flex">
-                            <p style={{ marginRight: '20px' }}>推送时间</p>
-                            <DatePicker placeholder="必填，需选择日期，否则无法查询" style={{ width: '340px', marginRight: '20px' }} mode="date" onChange={(val: any) => setNormalTimeInput(val)} enableTimePicker range />
+                            <p style={{ marginRight: '10px' }}>推送时间</p>
+                            <DatePicker value={normalTimeInput} placeholder="必填，需选择日期，否则无法查询" style={{ width: '340px', marginRight: '20px' }} mode="date" onChange={(val: any) => setNormalTimeInput(val)} enableTimePicker range />
                         </div>
                         <Button onClick={getTableData}>查询</Button>
                     </div>
